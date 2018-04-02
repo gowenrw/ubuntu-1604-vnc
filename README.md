@@ -1,5 +1,5 @@
 # ubuntu-1604-vnc
-Docker Container Image of Ubuntu 16.04 with SSHD, XFCE, VNC and more
+Docker Container Image of Ubuntu 16.04 with SSHD, XFCE, VNC and more designed for AWS ECS publishing
 
 
 # My notes on setting it up
@@ -24,7 +24,9 @@ ecs-cli push alt_bier/u16vnc
 ## Create the ecs-cli compose configuration file and start the service
 
 * Add the service in u16vnc.yml
-    * Modify limits and ports as needed.  Default opens all 3 ports and has hard limit of 0.25 vCPU and 512M RAM
+    * Change the image name to your AWS ECS Repository
+    * Modify limits and ports as needed.  
+    * Default opens all 3 ports and has hard limit of 0.25 vCPU and 512M RAM
 
 ```yaml
 version: '2'
