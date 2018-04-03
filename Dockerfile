@@ -9,8 +9,8 @@ FROM ubuntu:16.04
 LABEL maintainer="@alt_bier"
 LABEL name="u16vnc"
 LABEL description="Ubuntu 16.04 with SSHD and VNC"
-LABEL release-date="2018-03-29"
-LABEL version="1.0"
+LABEL release-date="2018-04-02"
+LABEL version="1.1"
 
 ####################
 # Basic Environment
