@@ -7,12 +7,15 @@ Docker Container Image of Ubuntu 16.04 with SSHD, XFCE, VNC and more designed fo
 
 # Basic Steps:
 
-* Modify Docker file
-* Modify Makefile
+* Modify Docker file to meet your needs and use your labels
+* Modify Makefile to meet your needs
 * make build
 
 
 # Push the image to AWS
+
+* Below is the command I used to push the image to my AWS ECS Repository. 
+    * You will need to modify this to the name of the AWS ECS repository you are using.
 
 ```bash
 ecs-cli push alt_bier/u16vnc
@@ -24,9 +27,12 @@ ecs-cli push alt_bier/u16vnc
 ## Create the ecs-cli compose configuration file and start the service
 
 * Add the service in u16vnc.yml
-    * Change the image name to your AWS ECS Repository
-    * Modify limits and ports as needed.  
-    * Default opens all 3 ports and has hard limit of 0.25 vCPU and 512M RAM
+    * Change the image name to your AWS ECS Repository instead of the one listed here
+    * Modify cpu/mem limits and exposed ports as needed.  
+        * As shown below it will opens all 3 ports and implement hard limits of 0.25 vCPU and 512M RAM.
+        * 1024 cpu_shares = 1 vCPU (256 = 0.25 vCPU)
+        * mem_limit is an integer indicating bytes in binary (1G=2^30=1073741824, 512M=2^29=536870912)
+    * Note that privileged mode is required to allow services to modify the network settings since ecs does not support NET_ADMIN
 
 ```yaml
 version: '2'
@@ -42,7 +48,6 @@ services:
      - "6901:6901/tcp"
 ```
 
-Note that privileged mode is required to allow services to modify the network settings since ecs does not support NET_ADMIN
 
 * Push the service into aws ecs and start the service
 
